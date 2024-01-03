@@ -38,7 +38,7 @@ This course:\pause
 
 \pause
 
-Did you take SOSC 13100 in fall quarter of 2022?
+Did you take SOSC 13100 in fall quarter of 2023?
 
 \end{frame}
 
@@ -79,7 +79,7 @@ Main take-aways from fall quarter?
 \pause
 \begin{itemize}
 \item Students will approach data thinking like a social scientist; i.e., thinking about what data inputs are, how they’re measured, relationships among variables, thinking about data generating processes when making inferences\pause
-\item Build on foundations of causal inference introduced in fall SSI I, with respect to both experimental and observational data \pause
+\item Build on foundations of descriptive and causal inference introduced in fall SSI I, with respect to both experimental and observational data \pause
 \item Have facility with basic statistical tests and methods \pause
 \item Have facility with basic statistical software programming and data visualization 
 \end{itemize}
