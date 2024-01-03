@@ -1,7 +1,7 @@
 #' ---
 #' title: "Assignment 1, Social Science Inquiry II (SOSC13200-W23-2)"
 #' author: "<your name here>"
-#' date: "Friday 1/6/23 at 5pm"
+#' date: "Monday 1/8/24 at 5pm"
 #' ---
 #' 
 #' For the first assignment, I want you to update this file with your name, and 
@@ -42,7 +42,7 @@
 #' 
 #' a. Make a folder for this class somewhere on your own computer. Preferably 
 #' not on your desktop. Mine is here: 
-#' `~Users/mollyofferwestort/Documents/Git/SOSC13200-W23`. 
+#' `~Users/mollyofferwestort/Documents/Git/SOSC13200-W24`. 
 #'
 #' b. Inside that folder, make one folder called `assignments`, and one folder 
 #' called `data`. 
@@ -61,6 +61,7 @@
 #' 
 #' d. Print your working directory: 
 getwd()
+dir('..') # and the directory above it. 
 #' 
 #' ## 3. Compile this report. 
 #' To do this, click on the notebook at the top of the source pane, where you 
