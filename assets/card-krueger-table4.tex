@@ -1,0 +1,21 @@
+\begin{table}
+\centering
+\begin{tabular}[t]{lccccc}
+\toprule
+  & Model 1 & Model 2 & Model 3 & Model 4 & Model 5\\
+\midrule
+New Jersey Dummy & \num{2.277} & \num{2.282} &  &  & \\
+ & (\num{1.456}) & (\num{1.457}) &  &  & \\
+Initial Wage Gap &  &  & \num{17.052}** & \num{16.363}* & \num{13.879}*\\
+ &  &  & (\num{6.153}) & (\num{6.537}) & (\num{7.051})\\
+\midrule
+Num.Obs. & \num{351} & \num{351} & \num{351} & \num{351} & \num{351}\\
+AIC & \num{2519.9} & \num{2524.4} & \num{2515.8} & \num{2521.1} & \num{2524.1}\\
+BIC & \num{2531.5} & \num{2551.4} & \num{2527.4} & \num{2548.1} & \num{2566.6}\\
+RMSE & \num{8.69} & \num{8.65} & \num{8.64} & \num{8.61} & \num{8.55}\\
+Controls for chain and ownership & no & yes & no & yes & yes\\
+Controls for region & no & no & no & no & yes\\
+\bottomrule
+\multicolumn{6}{l}{\rule{0pt}{1em}+ p $<$ 0.1, * p $<$ 0.05, ** p $<$ 0.01, *** p $<$ 0.001}\\
+\end{tabular}
+\end{table}
