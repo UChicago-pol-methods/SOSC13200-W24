@@ -189,7 +189,7 @@ table(dat$status[which(dat$d == 1)], dat$nj[which(dat$d == 1)])
 table(dat$type[which(dat$d ==1)])
 
 #' ## Further analysis
-#' Now, we'll use subsetting from last class to select the wave 1 and wave 2
+#' Now, we'll use subsetting to select the wave 1 and wave 2
 #' data
 # wave 1 data
 dat0 <- dat[which(dat$d==0),]
