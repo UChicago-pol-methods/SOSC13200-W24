@@ -20,11 +20,6 @@
 \begin{document}
 \SweaveOpts{concordance=TRUE}
 
-<<>>=
-library(ggplot2)
-library(gridExtra)
-set.seed(60637)
-@
 \nocite{aronow2019foundations,wasserman2004all,hernan2010causal}
 
 %-------------------------------------------------------------------------------%
@@ -56,6 +51,16 @@ set.seed(60637)
 }
 
 %-------------------------------------------------------------------------------%
+\begin{frame}[fragile]{Loading packages for this class}
+
+<<>>=
+library(ggplot2)
+library(gridExtra)
+set.seed(60637)
+@
+%-------------------------------------------------------------------------------%
+\end{frame}
+
 \begin{frame}{What do we do with data}
 
 Now that we've gotten started on working with data \dots what do we want to get from that data?
