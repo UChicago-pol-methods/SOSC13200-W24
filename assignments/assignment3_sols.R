@@ -87,8 +87,8 @@ mymean <- function(x){
 mymean(result_n)
 
 #' ## (1g)
-#' Re-run the code from 1f to get another length 10k sample from the same random
-#' process. [DON'T PRINT THIS WHOLE OBJECT.] Apply your `my_mean()` function to 
+#' Re-run the code from 1e to get another length 10k sample from the same random
+#' process. [DON'T PRINT THIS WHOLE OBJECT.] Apply your `my_mean()` function from 2f to 
 #' it.  
 
 result_n2 <- sample(x = df_X$X,
