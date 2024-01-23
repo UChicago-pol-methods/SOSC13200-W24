@@ -69,8 +69,8 @@ set.seed(60637)
 # Your code here.
 
 #' ## (1g)
-#' Re-run the code from 1f to get another length 10k sample from the same random
-#' process. [DON'T PRINT THIS WHOLE OBJECT.] Apply your `my_mean()` function to 
+#' Re-run the code from 1e to get another length 10k sample from the same random
+#' process. [DON'T PRINT THIS WHOLE OBJECT.] Apply your `my_mean()` function from 1f to 
 #' it.  
 
 # Your code here.
