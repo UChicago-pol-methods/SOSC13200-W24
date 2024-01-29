@@ -73,7 +73,7 @@ Given what you included in parts I and II of your report, provide a high-level n
     - source: [https://github.com/nytimes/covid-19-data](https://github.com/nytimes/covid-19-data)
     - files: There are a number of different files available for download at the site, including [national](https://raw.githubusercontent.com/nytimes/covid-19-data/master/us.csv), [state](https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv), and [county](https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv)-level data.  
 
-- Replication data for Gerber, Alan S., Donald P. Green, and Christopher W. Larimer, 2008, ÒSocial Pressure and Voter Turnout: Evidence from a Large-Scale Field Experiment.Ó 
+- Replication data for Gerber, Alan S., Donald P. Green, and Christopher W. Larimer, 2008, Ã’Social Pressure and Voter Turnout: Evidence from a Large-Scale Field Experiment.Ã“ 
     - source: [ISPS Data Archive](http://hdl.handle.net/10079/c7507a0d-097a-4689-873a-7424564dfc82) 
     - file: **ggl_household.csv**
     
