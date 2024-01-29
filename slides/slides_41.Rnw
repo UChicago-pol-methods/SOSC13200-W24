@@ -21,6 +21,10 @@
 \begin{document}
 \SweaveOpts{concordance=TRUE, prefix.string = figs41/}
 
+<<setup, include=FALSE, echo=FALSE>>=
+if(!dir.exists('figs41')){dir.create('figs41')}
+@
+
 
 %-------------------------------------------------------------------------------%
 \frame{\titlepage
@@ -301,16 +305,14 @@ ggplot(dat, aes(x = year_of_birth, y = education)) +
   geom_point()
 @
 
-% \begin{figure}
-% \centering
-% \resizebox{.6\textwidth}{!}{
-% <<plot_basic, fig = TRUE, width = 6, height=6, echo = FALSE>>=
-% ggplot(dat, aes(x = year_of_birth, y = education)) +
-%   geom_point()
-% 
-% }
-% \end{figure}
-% @
+
+<<plot_basic, fig = FALSE, include = FALSE, echo = FALSE>>=
+if(!file.exists('figs41/-plot_basic.pdf')){
+  g <- ggplot(dat, aes(x = year_of_birth, y = education)) +
+    geom_point()
+  ggsave('figs41/-plot_basic.pdf', g, width = 6, height=6)
+}
+@
 
 
 \begin{figure}
@@ -340,9 +342,9 @@ ggplot(dat, aes(x = year_of_birth, y = education)) +
 \scriptsize
 << >>=
 dat_agg <- aggregate(x = dat[, c('log_weekly_wage', 'education')], 
-                    by = list(`year_of_birth` = dat$year_of_birth, 
-                              `quarter_of_birth` = dat$quarter_of_birth),
-                    FUN = mean)
+                     by = list(`year_of_birth` = dat$year_of_birth, 
+                               `quarter_of_birth` = dat$quarter_of_birth),
+                     FUN = mean)
 
 dat_agg$year_of_birth_adj <- dat_agg$year_of_birth + 
   0.25 * (dat_agg$quarter_of_birth-1)
@@ -425,8 +427,8 @@ ggplot(dat_agg, aes(x = year_of_birth_adj, y = education)) +
 \scriptsize
 <<echo = TRUE, eval = FALSE>>=
 ggplot(dat_agg, aes(x = year_of_birth_adj, 
-                   y = education, 
-                   label = quarter_of_birth)) +
+                    y = education, 
+                    label = quarter_of_birth)) +
   geom_point(pch = 15, 
              aes(color = as.factor(quarter_of_birth) )) + # points with color
   geom_line() + # lines
@@ -567,14 +569,14 @@ dat$year_of_birth_adj <- dat$year_of_birth + 0.25 * (dat$quarter_of_birth-1)
 
 # and match aggregated moving average to main data
 dat$moving_average <- dat_agg$moving_average[match(dat$year_of_birth_adj, 
-                                                 dat_agg$year_of_birth_adj)]
+                                                   dat_agg$year_of_birth_adj)]
 
 # calculate deviation from moving average
 dat$deviation <- dat$education-dat$moving_average
 
 # get aggregate deviation
 dat_agg$deviation <- aggregate(x = dat$deviation, 
-                              by = list(dat$year_of_birth_adj), mean)$x
+                               by = list(dat$year_of_birth_adj), mean)$x
 
 @
 
@@ -598,9 +600,9 @@ dat_agg$deviation <- aggregate(x = dat$deviation,
 \scriptsize
 <<eval = FALSE>>=
 ggplot(dat_agg, aes(x = year_of_birth_adj, 
-                   y = deviation, 
-                   fill = as.factor(quarter_of_birth),
-                   label = quarter_of_birth)) +
+                    y = deviation, 
+                    fill = as.factor(quarter_of_birth),
+                    label = quarter_of_birth)) +
   geom_col(na.rm = TRUE) +
   geom_text(hjust = 0, nudge_y = 0.003, nudge_x = -0.1, na.rm = TRUE) + # text labels on points
   coord_cartesian(ylim = c(-0.2, 0.2)) +
@@ -636,9 +638,9 @@ ggplot(dat_agg, aes(x = year_of_birth_adj,
 \resizebox{.6\textwidth}{!}{
 <<fig = TRUE, width = 6, height=6, echo = FALSE>>=
 ggplot(dat_agg, aes(x = year_of_birth_adj, 
-                   y = deviation, 
-                   fill = as.factor(quarter_of_birth),
-                   label = quarter_of_birth)) +
+                    y = deviation, 
+                    fill = as.factor(quarter_of_birth),
+                    label = quarter_of_birth)) +
   geom_col(na.rm = TRUE) +
   geom_text(hjust = 0, nudge_y = 0.003, nudge_x = -0.1, na.rm = TRUE) + # text labels on points
   coord_cartesian(ylim = c(-0.2, 0.2)) +
@@ -758,7 +760,7 @@ What should we do with this evidence?\pause
 \scriptsize
 <<eval = FALSE>>=
 ggplot(dat_agg, aes(x = year_of_birth_adj, y = log_weekly_wage, 
-                   label = quarter_of_birth)) +
+                    label = quarter_of_birth)) +
   geom_point(pch = 15, 
              aes(color = as.factor(quarter_of_birth) )) + # points with color
   geom_line() + # lines
@@ -798,7 +800,7 @@ ggplot(dat_agg, aes(x = year_of_birth_adj, y = log_weekly_wage,
 \resizebox{.6\textwidth}{!}{
 <<fig = TRUE, width = 6, height=6, echo = FALSE>>=
 ggplot(dat_agg, aes(x = year_of_birth_adj, y = log_weekly_wage, 
-                   label = quarter_of_birth)) +
+                    label = quarter_of_birth)) +
   geom_point(pch = 15, 
              aes(color = as.factor(quarter_of_birth) )) + # points with color
   geom_line() + # lines

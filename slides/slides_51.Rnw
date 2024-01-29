@@ -23,6 +23,11 @@
 \SweaveOpts{concordance=TRUE, prefix.string = figs51/}
 
 
+<<setup, include=FALSE, echo = FALSE>>=
+if(!dir.exists('figs51')){dir.create('figs51')}
+@
+
+
 %-------------------------------------------------------------------------------%
 \frame{\titlepage
 \thispagestyle{empty}

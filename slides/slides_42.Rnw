@@ -19,8 +19,12 @@
 
 
 \begin{document}
-\SweaveOpts{concordance=TRUE}
-% \SweaveOpts{concordance=TRUE, prefix.string = figs42/}
+\SweaveOpts{concordance=TRUE, prefix.string = figs42/}
+
+
+<<setup, include=FALSE, echo = FALSE>>=
+if(!dir.exists('figs42')){dir.create('figs42')}
+@
 
 
 %-------------------------------------------------------------------------------%
@@ -28,28 +32,28 @@
 \thispagestyle{empty}
 }
 %-------------------------------------------------------------------------------%
-% \begin{frame}[fragile]{Loading packages for this class}
-% 
-% <<packages>>=
-% library(ggplot2)
-% @
-% 
-% \end{frame}
-% 
-% 
-% %%%%%NOTE%%%%%
-% 
-% \note{
-% \scriptsize \singlespacing
-% 
-% \begin{itemize}
-% \item xxxx
-% \end{itemize}
-% 
-% }
-% 
-% 
-% %-------------------------------------------------------------------------------%
+\begin{frame}[fragile]{Loading packages for this class}
+
+<<packages>>=
+library(ggplot2)
+@
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+
+}
+
+
+%-------------------------------------------------------------------------------%
 
 \begin{frame}[c]
 

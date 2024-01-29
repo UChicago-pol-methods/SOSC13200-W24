@@ -18,9 +18,14 @@
 
 
 \begin{document}
-\SweaveOpts{concordance=TRUE}
+\SweaveOpts{concordance=TRUE, prefix.string = figs31/}
 
 \nocite{aronow2019foundations,wasserman2004all,hernan2010causal}
+
+%-------------------------------------------------------------------------------%
+<<setup, include=FALSE, echo=FALSE>>=
+if(!dir.exists('figs31')){dir.create('figs31')}
+@
 
 %-------------------------------------------------------------------------------%
 \frame{\titlepage
