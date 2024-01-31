@@ -14,7 +14,7 @@ Your final project will consist of three components, submitted each week, as reg
 For each component, as with regular homework assignments, submit both the R source file and the compiled pdf report. 
 
 ### Part I: Data set selection and descriptive analysis.
-#### Due Monday 2/20 at 5pm
+#### Due Monday 2/19 at 5pm
 
 Select your data set from among those listed **below**, or propose a different data set that you would like to analyze. Your data set does not need to be directly related to social science. 
 
@@ -34,7 +34,7 @@ Write narrative and code answering the below questions. Your compiled report for
 
 
 ### Part II: Multiple linear regression and data visualizations. 
-#### Due Monday 2/27 at 5pm
+#### Due Monday 2/26 at 5pm
 
 Describe relationships among variables in your data set, demonstrating your data visualization and quantitative analysis skills. 
 
@@ -61,7 +61,7 @@ Write narrative and code answering the below questions. Your compiled report for
     *  Interpret the coefficient on your independent variable of interest in these alternative models. Do these alternate specifications meaningfully change the value of the slope coefficient on your independent variable of interest? Do they change the p-value on your independent variable of interest? What does this tell you about the relationships across the variables?
 
 ### Part III: Finalize report and discussion. 
-#### Due Friday 3/3 at 5pm 
+#### Due Friday 3/1 at 5pm 
 **Note the short turn-around between parts II and III**
 
 Given what you included in parts I and II of your report, provide a high-level narrative take-away about what you found in your selected data set. Include any additional analysis or visualizations that help explain this data set. Your compiled report for this part of the project, including narrative and compiled code, should be about 1 page long, or potentially longer if you have included more visualizations. If you want to correct or revise anything from parts I and II, you can do that here. 
