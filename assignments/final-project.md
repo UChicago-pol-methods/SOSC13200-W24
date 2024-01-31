@@ -1,5 +1,5 @@
 # SOSC 13200: Social Science Inquiry II
-## Section 2
+## Section 6
 ### University of Chicago
 ### Winter Quarter 2024
 
