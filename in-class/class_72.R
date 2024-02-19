@@ -10,7 +10,7 @@ library(modelsummary)
 
 #' 
 #' ## Reading in the data 
-file <- "https://raw.githubusercontent.com/UChicago-pol-methods/SOSC13200-W23/main/data/card-krueger.csv"
+file <- "https://raw.githubusercontent.com/UChicago-pol-methods/SOSC13200-W24/main/data/card-krueger.csv"
 dat <- read.csv(file, as.is = TRUE)
 
 #+ eval = FALSE
@@ -157,7 +157,8 @@ dat_wide <- reshape(dat, direction = 'wide', idvar = 'id',
 dat_wide$Y <- dat_wide$fte.1-dat_wide$fte.0
 
 # discuss coding of gap
-dat_wide$gap <- ifelse(dat_wide$nj==1 & dat_wide$wage.0<= 5.05,((5.05-dat_wide$wage.0)/dat_wide$wage.0),0)
+dat_wide$gap <- ifelse(dat_wide$nj==1 & dat_wide$wage.0<= 5.05,
+                       ((5.05-dat_wide$wage.0)/dat_wide$wage.0),0)
 
 # conditioning variables, based on table footnote
 dat_wide <- dat_wide[which( !is.na(dat_wide$Y) &

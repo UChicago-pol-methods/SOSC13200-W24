@@ -108,7 +108,7 @@ $$
 $$
 \pause
 
-\item If $\alpha = 0.05$, the probability that the estimand $\theta$ is in our confidence interval is greater than or equal to 0.95.
+\item If $\alpha = 0.05$, the probability that we construct a random confidence interval such that the estimand $\theta$ is in our confidence interval is greater than or equal to 0.95.
 
 \pause
 
