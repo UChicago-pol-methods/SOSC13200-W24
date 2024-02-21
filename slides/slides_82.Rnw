@@ -42,7 +42,7 @@ if(!dir.exists('figs82')){dir.create('figs82')}
 \thispagestyle{empty}
 }
 <<echo = FALSE>>=
-options(scipen=1, digits=2)
+options(scipen=1, digits=4)
 @
 
 
@@ -430,18 +430,18 @@ These tests aren't all fully independent, but the more tests we do, the more lik
 What if tests are not independent? \pause Bonferroni is too aggressive. 
 
 \begin{align*}
-\uncover<+->{\textrm{P}[\text{A}\cup\text{B}] & = \textrm{P}[\text{A}] + \textrm{P}[\text{A}^\text{C}]\times\textrm{P}[\text{B}| \text{A}^\text{C}]}
-\uncover<+->{\intertext{If A and B are positively correlated $\textrm{P}[\text{B}| \text{A}^\text{C}] \le \textrm{P}[\text{B}]$}}
+\onslide<2->{\textrm{P}[\text{A}\text{B}] & = \textrm{P}[\text{A}] + \textrm{P}[\text{A}^\text{C}]\times\textrm{P}[\text{B}| \text{A}^\text{C}]}
+\onslide<3->{\intertext{If A and B are positively correlated $\textrm{P}[\text{B}| \text{A}^\text{C}] \le \textrm{P}[\text{B}]$}}\pause
 \end{align*}
 
 \begin{itemize}
-\item Correcting FWER
+\item<4-> Correcting FWER
 \begin{itemize}
-\item Holm correction: for $m$ hypotheses, for significance level $\alpha$:
+\item<5-> Holm correction: for $m$ hypotheses, for significance level $\alpha$:
 \begin{itemize}
-\item Order the $m$ conventionally calculated p-values from smallest to largest \pause
-\item Find the \textit{smallest} p-value indexed as $k$ such that $p_k > \frac{\alpha}{m +1 -k}$\pause
-\item Reject all p-values greater than or equal to $p_k$, accept all p-values less $p_k$
+\item<6-> Order the $m$ conventionally calculated p-values from smallest to largest 
+\item<7-> Find the \textit{smallest} p-value indexed as $k$ such that $p_k > \frac{\alpha}{m +1 -k}$
+\item<8-> Reject all p-values greater than or equal to $p_k$, accept all p-values less $p_k$
 \end{itemize}
 \end{itemize}
 \end{itemize}
@@ -468,9 +468,9 @@ What if tests are not independent? \pause Bonferroni is too aggressive.
 
 
 \begin{itemize}
-\item Correcting FDR
+\item Correcting FDR\pause
 \begin{itemize}
-\item Benjamini-Hochberg correction: for $m$ hypotheses, for significance level $\alpha$:
+\item Benjamini-Hochberg correction: for $m$ hypotheses, for significance level $\alpha$:\pause
 \begin{itemize}
 \item Order the $m$ conventionally calculated p-values from smallest to largest \pause
 \item Find the \textit{largest} p-value indexed as $k$ such that $p_k \le \frac{k}{m}\alpha$\pause
@@ -767,3 +767,8 @@ hist(rnorm(10))
 }
 
 %-------------------------------------------------------------------------------%
+<<echo = FALSE>>=
+f <- 'slides_82.Rnw'
+knitr::purl(f)
+knitr::Sweave2knitr(f)
+@

@@ -1,0 +1,1160 @@
+\documentclass[xcolor={dvipsnames}, handout]{beamer}
+
+\usepackage{../assets/pres-template_MOW}
+\usepackage{verbatim}
+\usepackage{colortbl}
+
+\RequirePackage{xcolor,hyperref,url}
+
+\definecolor{Maroon}{RGB}{128, 0, 0}
+\usecolortheme[named=Maroon]{structure}
+\definecolor{Contrast1}{RGB}{248,164,41} %Yellow
+\definecolor{Contrast1l}{RGB}{249,182,78} %Yellowlight
+\definecolor{Contrast1d}{RGB}{198,130,32} %Yellowdark
+
+\definecolor{Contrast2}{RGB}{193,102,34} %Orange
+\definecolor{Contrast2l}{RGB}{211,147,99} %Orangelight
+\definecolor{Contrast2d}{RGB}{154, 83,36} %Orangedark
+
+\definecolor{Contrast3}{RGB}{153,57,49} %Red
+\definecolor{Contrast3l}{RGB}{186,123,118} %Redlight
+\definecolor{Contrast3d}{RGB}{109,50,39} %Reddark
+
+\definecolor{Contrast4}{RGB}{145,171,90} %Green
+\definecolor{Contrast4l}{RGB}{174,177,126} %Greenlight
+\definecolor{Contrast4d}{RGB}{101,109,51} %Greendark
+
+\definecolor{Contrast5}{RGB}{88,89,63} %Dark Green
+\definecolor{Contrast5l}{RGB}{140,144,127} %Dark Greenlight
+\definecolor{Contrast5d}{RGB}{70,72,51} %Dark Greendark
+
+\definecolor{Contrast6}{RGB}{21,95,131} %Blue
+\definecolor{Contrast6l}{RGB}{91,150,173} %Bluelight
+\definecolor{Contrast6d}{RGB}{21,67,95} %Bluedark
+
+\definecolor{Contrast7}{RGB}{53,14,32} %Violet
+\definecolor{Contrast7l}{RGB}{114,86,99} %Violetlight
+
+
+\definecolor{Violator1}{RGB}{44,170,226} %Cyan
+\definecolor{Violator2}{RGB}{236,0,140} %Magenta
+
+\setkeys{Gin}{keepaspectratio}
+
+%--------------------------------------------------------------------------
+% Specific to this document ---------------------------------------
+\usepackage{booktabs}
+\usepackage{siunitx}
+\newcolumntype{d}{S[input-symbols = ()]}
+
+\makeatletter
+\newcommand{\Pause}[1][]{\unless\ifmeasuring@\relax
+\pause[#1]%
+\fi}
+\makeatother
+
+%--------------------------------------------------------------------------
+% \setbeamercovered{transparent}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\tabcolsep}{1.3pt}
+\title{Social Science Inquiry II}
+\subtitle{Week 9: Beyond linear regression}
+\date{Winter 2024}
+\author{Molly Offer-Westort}
+\institute{Department of Political Science, \\University of Chicago}
+
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+
+%-------------------------------------------------------------------------------%
+<<setup, include=FALSE, echo = FALSE>>=
+if(!dir.exists('figs91')){dir.create('figs91')}
+@
+%-------------------------------------------------------------------------------%
+\frame{\titlepage
+\thispagestyle{empty}
+}
+<<echo = FALSE>>=
+options(scipen=1, digits=2)
+@
+
+
+%-------------------------------------------------------------------------------%
+\begin{frame}[fragile]{Loading packages for this class}
+
+<<packages>>=
+set.seed(60637)
+library(ggplot2)
+@
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxx
+\end{itemize}
+
+
+}
+
+
+
+
+%-------------------------------------------------------------------------------%
+\begin{frame}
+
+\begin{itemize}
+\item Housekeeping
+\end{itemize}
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item  xxxx
+\end{itemize}
+\~\n}
+
+%-------------------------------------------------------------------------------%
+\begin{frame}{Machine learning}
+
+What is it?\pause
+\begin{itemize}
+\item A body of \textit{algorithmic} methods \dots \pause (an algorithm is just a recipe)\pause
+\item Somehow part of \textit{artificial intelligence}\dots \pause (basically, how computers perform tasks)\pause
+\item In general, a flexible, \textit{data-driven} approach to make predictions, classify data, or take decisions.
+\end{itemize}
+
+\nocite{athey2019machine}
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+\\~\
+}
+
+%-------------------------------------------------------------------------------%
+\begin{frame}{Machine learning}
+
+How do the objectives of machine learning differ from those of conventional quantitative methods in the social sciences?\pause
+\begin{itemize}
+\item In conventional quantitative methods:
+\begin{itemize}
+\item identify and estimate a target estimand, which is often a parameter in a statistical model, \pause defined over some specified population of interest.\pause
+\item descriptive or causal, e.g., population employment rate, or effect of a policy\pause
+\end{itemize}
+\item In ML:
+\begin{itemize}
+\item development of algorithms to make classifications or predictions. \pause
+\item e.g., is this a picture of banana or a cat? \pause Will this person be more likely to click on an ad for sneakers or cookware?\pause
+\end{itemize}
+\item Is there overlap between the two?
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+\\~\
+}
+
+%-------------------------------------------------------------------------------%
+\begin{frame}{Model fit vs. prediction}
+
+
+\begin{itemize}
+\item In linear regression, propose a model:
+$$ \hat{Y}_i = \hat{\beta}_0 +  \hat{\beta}_1 X_{1i} + \hat{\beta}_2 X_{2i} + \dots + \hat{\beta}_K X_{Ki} $$
+\item Select $\hat \beta_0 \dots \hat\beta_K$ to minimize 
+$$
+\sum_{i = 1}^N \hat{\varepsilon_i}^2 = \sum_{i = 1}^N\left(\hat{Y}_i - Y_i\right)^2
+$$
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+\\~\
+}
+
+%-------------------------------------------------------------------------------%
+\begin{frame}{Model fit vs. prediction}
+
+
+\begin{itemize}
+\item For prediction tasks, we could use the same model, 
+$$ \hat{Y}_i = \hat{\beta}_0 +  \hat{\beta}_1 X_{1i} + \hat{\beta}_2 X_{2i} + \dots + \hat{\beta}_K X_{Ki} $$
+\item But select $\hat \beta_0 \dots \hat\beta_K$ to minimize squared prediction error for the next observation:
+$$
+\hat{\varepsilon}_{N+1}^2 = \left(\hat{Y}_{N + 1} - Y_{N +1}\right)^2
+$$\pause
+\item Are these the same thing? \pause (no)\pause
+\item If prediction is our goal, can we do better than least squares regression? \pause (yes)
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+\\~\
+}
+
+%-------------------------------------------------------------------------------%
+\begin{frame}{Some ML tools}
+
+\begin{itemize}
+\item A major concern of ML: \textit{overfit}
+\begin{itemize}
+\item If your model fits the data \textit{too} perfectly, it's not useful for prediction
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+\\~\
+}
+
+%-------------------------------------------------------------------------------%
+\begin{frame}[fragile]
+
+Suppose we would like to fit a model to the following data:
+\begin{figure}
+\centering
+{
+<<fig = TRUE, width = 7, height=5, echo=FALSE>>=
+x <- runif(15, 1, 10)
+y <- 3*x + rnorm(15, sd = 2)
+
+
+ggplot(data.frame(x = x, y = y), aes(x = x, y = y)) +
+    geom_point() +
+    theme_bw()
+
+
+@
+}
+\end{figure}
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+\\~\
+}
+
+%-------------------------------------------------------------------------------%
+\begin{frame}[fragile]
+
+We could use a single line:
+\begin{figure}
+\centering
+{
+<<fig = TRUE, width = 7, height=5, echo=FALSE>>=
+ggplot(data.frame(x = x, y = y), aes(x = x, y = y)) +
+    geom_point() +
+    geom_smooth(method = 'lm', se = FALSE) +
+    theme_bw()
+
+
+@
+}
+\end{figure}
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+\\~\
+}
+
+%-------------------------------------------------------------------------------%
+\begin{frame}[fragile]
+
+Or we could fit a curve that goes between every point:
+\begin{figure}
+\centering
+{
+<<fig = TRUE, width = 7, height=5, echo=FALSE>>=
+ggplot(data.frame(x = x, y = y), aes(x = x, y = y)) +
+  geom_point() + 
+  geom_smooth(method = lm, se = FALSE, formula = y ~ splines::bs(x, 13)) + 
+  theme_bw()
+
+
+@
+}
+\end{figure}
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+\\~\
+}
+
+%-------------------------------------------------------------------------------%
+\begin{frame}{Cross-validation}
+
+
+\begin{itemize}
+\item If we were to draw another observation from the joint distribution of $(Y,X)$, which one do you think would do a better job of prediction? \pause
+\item ML methods propose a way to check this, by separating data into training and test sets. \pause
+\item You can fit different models on the training set, and then see which one does the best job of predicting response in the test set. \pause (This is not a new idea.)\pause
+\item There are some different ways to do this:
+\begin{itemize}
+\item Leave-$k$-out
+\item Leave-one-out
+\item $k$-fold cross validation
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+\\~\
+}
+
+%-------------------------------------------------------------------------------%
+\begin{frame}{What is our goal in fitting a model?}
+
+\pause
+\begin{itemize}
+\item Given some data $(Y_1, \X_1), \dots, (Y_N, \X_N)$, we fit a model, $\hat{f}(X)$.\pause
+\item Suppose our goal is prediction for the next observation. \pause
+\item Given $X_{N+1}$, we want to minimize
+\[
+L\left(Y_{N+1}, \hat{f}(X_{N+1})\right) = \left(Y_{N+1} - \hat{f}(X_{N+1})\right)^2
+\]\pause
+\item We may be interested not just in how our method performs on one specific observation, but how it performs in expectation
+\[
+\textrm{Err} = \E \left[ L(Y, \hat{f}(X))\right]
+\]\pause
+\item What should the expectation be taken over? \pause Can/should we hold the data we used for fitting the model fixed?
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+
+}
+
+%-------------------------------------------------------------------------------%
+\begin{frame}{What is our goal in fitting a model?}
+
+\begin{itemize}
+\item Difference between conditional error and expected test error\pause
+\begin{itemize}
+\item Conditional test error:
+\[
+\textrm{Err}_{\mathcal{T}} = \E \left[ L(Y, \hat{f}(X)) \rvert \mathcal{T} \right]
+\]
+Training set $\mathcal{T}$ is fixed. \pause
+
+\item Expected test error:
+\[
+\textrm{Err} = \E \left[ L(Y, \hat{f}(X))\right] =\E \left[  \E \left[ L(Y, \hat{f}(X)) \rvert \mathcal{T}\right] \right]
+\]
+\end{itemize}\pause
+\item We may be interested in $\textrm{Err}_{\mathcal{T}}$, in practice most estimating methods will give us estimates of $\textrm{Err}$. 
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+
+}
+
+%-------------------------------------------------------------------------------%
+\begin{frame}{What is our goal in fitting a model?}
+
+
+\begin{figure}
+\centering
+\includegraphics[width = 0.8\textwidth]{../assets/tibshirani7-1.png}
+\end{figure}
+\hfill \cite{hastie2009elements}
+
+\textcolor{blue}{Blue} is in-sample error, \textcolor{red}{red} is out-of-sample error.
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+
+}
+
+
+
+%-------------------------------------------------------------------------------%
+\begin{frame}{What is our goal in fitting a model?}
+
+\begin{itemize}
+\item We may want to use expected test error to \textbf{select among models}, or versions of models.\pause
+\item And, once we have selected a version of a model, we may want to \textbf{assess} how a selected model performs. 
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+
+}
+
+%-------------------------------------------------------------------------------%
+\begin{frame}{What is our goal in fitting a model?}
+
+\begin{itemize}
+\item We can't measure expected test error directly. 
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+
+}
+
+%-------------------------------------------------------------------------------%
+\begin{frame}{What is our goal in fitting a model?}
+
+\begin{itemize}
+\item A procedure that allows us to estimate it:
+\begin{itemize}
+\item Split data into three parts
+\begin{table}[]
+\arrayrulecolor{white}  
+\renewcommand{\arraystretch}{2.5}
+\begin{tabular}{>{\centering\arraybackslash}p{5cm}|>{\centering\arraybackslash}p{2.5cm}|>{\centering\arraybackslash}p{2.5cm} }
+\cellcolor{Contrast1l} \textcolor{white}{Training} & \cellcolor{Contrast4l} \textcolor{white}{Validation} & \cellcolor{Contrast6l} \textcolor{white}{Test} 
+\end{tabular}
+\end{table}
+\pause
+\item Fit models to the training set. \pause
+\item Estimate prediction error of models in validation set. \pause
+\item Select model with minimum error in validation set.\pause
+\item Then get generalization error of just that model on test set. \pause
+\end{itemize}
+\item Why do we need to estimate the prediction error of the selected model \textit{again}? \pause Winner's curse. 
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+
+}
+
+%-------------------------------------------------------------------------------%
+\begin{frame}{Cross-validation.}
+
+\begin{itemize}
+\item We can potentially get more out of our data by cross-validating.
+\end{itemize}
+
+\begin{table}[]
+\arrayrulecolor{white}  
+\renewcommand{\arraystretch}{2.5}
+\begin{tabular}{l >{\centering\arraybackslash}p{4cm}|>{\centering\arraybackslash}p{4cm} }
+Version 1 & \cellcolor{Contrast1l} \textcolor{white}{Training} & \cellcolor{Contrast4l} \textcolor{white}{Validation} \\
+\hline
+Version 2 & \cellcolor{Contrast4l} \textcolor{white}{Validation} & \cellcolor{Contrast1l} \textcolor{white}{Training} \\
+\end{tabular}
+\end{table}
+\pause
+
+\[
+\widehat{\textrm{Err}}_{CV} = \sum_{i = 1}^N L\left(y_i, \hat{f}^{-k(i)}(x_i) \right)
+\]
+$\hat{f}^{-k(i)}$ are the fits from the folds $k$ that do not contain $i$. 
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+
+}
+
+%-------------------------------------------------------------------------------%
+
+\begin{frame}{K-fold cross validation.}
+
+\begin{table}[]
+\renewcommand{\arraystretch}{2.5}
+\arrayrulecolor{white}  
+\begin{tabular}{l >{\centering\arraybackslash}m{2cm} |>{\centering\arraybackslash}p{2cm}|>{\centering\arraybackslash}p{2cm}|>{\centering\arraybackslash}p{2cm}|>{\centering\arraybackslash}p{2cm} }
+Version 1 & \cellcolor{Contrast1l} \textcolor{white}{Training} & \cellcolor{Contrast1l} \textcolor{white}{Training} & \cellcolor{Contrast1l} \textcolor{white}{Training} & \cellcolor{Contrast1l} \textcolor{white}{Training} & \cellcolor{Contrast4l} \textcolor{white}{Validation} \\
+\hline
+Version 2 & \cellcolor{Contrast1l} \textcolor{white}{Training}& \cellcolor{Contrast1l} \textcolor{white}{Training}& \cellcolor{Contrast1l} \textcolor{white}{Training} & \cellcolor{Contrast4l} \textcolor{white}{Validation} & \cellcolor{Contrast1l} \textcolor{white}{Training} \\
+\hline
+Version 3 &  \cellcolor{Contrast1l} \textcolor{white}{Training} & \cellcolor{Contrast1l} \textcolor{white}{Training}&\cellcolor{Contrast4l} \textcolor{white}{Validation}& \cellcolor{Contrast1l} \textcolor{white}{Training} & \cellcolor{Contrast1l} \textcolor{white}{Training} \\
+\hline
+Version 4 & \cellcolor{Contrast1l} \textcolor{white}{Training}& \cellcolor{Contrast4l} \textcolor{white}{Validation}& \cellcolor{Contrast1l} \textcolor{white}{Training}& \cellcolor{Contrast1l} \textcolor{white}{Training}  & \cellcolor{Contrast1l} \textcolor{white}{Training} \\
+\hline
+Version 5 & \cellcolor{Contrast4l} \textcolor{white}{Validation}& \cellcolor{Contrast1l} \textcolor{white}{Training}& \cellcolor{Contrast1l} \textcolor{white}{Training}& \cellcolor{Contrast1l} \textcolor{white}{Training}  & \cellcolor{Contrast1l} \textcolor{white}{Training} \\
+\hline
+\end{tabular}
+\end{table}
+
+\[
+\widehat{\textrm{Err}}_{CV} = \sum_{i = 1}^N L\left(y_i, \hat{f}^{-k(i)}(x_i) \right)
+\]
+$\hat{f}^{-k(i)}$ are the fits from the folds $k$ that do not contain $i$. 
+
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+
+}
+
+%-------------------------------------------------------------------------------%
+\begin{frame}{Cross-validion.}
+
+\begin{itemize}
+\item How do we pick $K$?\pause
+\item $K = N$? \pause Low bias, possibly high variance (our prediction sets are very similar). \pause
+\item $K = 5$? \pause Lower variance, possibly higher bias. \pause How much does the prediction change as we change the size of the data set?\pause
+\begin{figure}
+\centering
+\includegraphics[width = 0.6\textwidth]{../assets/tibshirani7-8.png}
+\end{figure}
+\hfill \cite{hastie2009elements}
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+
+}
+
+%-------------------------------------------------------------------------------%
+\begin{frame}{Cross-validion.}
+
+\begin{itemize}
+\item Rule of thumb is often 5 or 10.
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+
+}
+
+%-------------------------------------------------------------------------------%
+\begin{frame}{Regularization}
+
+\begin{itemize}
+\item Overfit can become a real problem when we have a lot of predictors ($K$) relative to our number of observations ($N$)\pause
+\item This is a common problem when we think about an industry setting, where for every customer a business might have a large number of measurements. \pause Which ones should they use to predict an outcome? 
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+\\~\
+}
+
+%-------------------------------------------------------------------------------%
+\begin{frame}{Regularization}
+
+\begin{itemize}
+\item Consider a model:
+$$
+Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_K X_K + \varepsilon
+$$\pause
+\item With $K\ge N$, even if every $\beta_k$ is non-zero, we won't be able to make good predictions with all of our $\hat\beta_k$--and when we care about prediction, that's not our goal, anyhow. \pause
+\item With regularization, we shrink some of the $\hat \beta_k$ nearly all the way or all the way to zero. \pause
+\item For \textit{ridge regression} or \textit{lasso}, we select the $\hat\beta_k$ using: 
+$$
+\underset{\Beta}{\textrm{argmin}}\left\{\sum_{i = 1}^N \left(Y_i - \beta_0 + \sum_{k = 1}^K X_{ki}\beta_k\right)^2 + \lambda \sum_{k = 1}^K |\beta_k|^q 
+\right\}
+$$
+\end{itemize}
+\scriptsize
+\cite{hastie2009elements}
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+\\~\
+}
+
+%-------------------------------------------------------------------------------%
+\begin{frame}{Regression Trees}
+
+\begin{itemize}
+\item Suppose we have joint data, $(Y,X)$, with just one predictor, $X$.\pause
+\item Our goal is to pick some value of $c$ so that we can split the data into two sub-samples \dots
+\begin{itemize}
+\item $X_i \le c$
+\item $X_i >c$
+\end{itemize}\pause
+\item\dots and for each sub-sample, predict $\hat Y $ as the mean of the $Y_i$ within each sample.\pause
+\item We want to pick $c$ to minimize:
+$$
+Q = \sum_{i:X_i \le c}(Y_i - \bar Y_{\text{lower}})^2 + \sum_{i:X_i > c}(Y_i - \bar Y_{\text{upper}})^2
+$$
+\end{itemize}
+
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+\\~\
+}
+
+%-------------------------------------------------------------------------------%
+\begin{frame}[fragile]
+
+\begin{figure}
+\centering
+{
+<<fig = TRUE, width = 7, height=5, echo=FALSE>>=
+
+ggplot(data.frame(x = x, y = y), aes(x = x, y = y)) +
+    geom_point() +
+    theme_bw() + 
+  coord_cartesian(ylim = c(0, 30), xlim = c(0,10))
+
+@
+}
+\end{figure}
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+\\~\
+}
+
+%-------------------------------------------------------------------------------%
+\begin{frame}[fragile]
+
+\begin{figure}
+\centering
+{
+<<fig = TRUE, width = 7, height=5, echo=FALSE>>=
+minc <- function(c){
+    sum((y[which(x <=c)] - mean(y[which(x <=c)]))^2) + 
+        sum((y[which(x >c)] - mean(y[which(x >c)]))^2)
+}
+
+newmin <- x[which.min(sapply(x, minc))]+.1
+df <- data.frame(x = x, y = y)
+df$y_distance <- ifelse(df$x <= newmin, df$y - mean(df$y[which(df$x <= newmin)]), 
+                        df$y - mean(df$y[which(df$x > newmin)]))
+
+ggplot(, aes(x = x, y = y)) +
+    geom_point() +
+    theme_bw() +
+    geom_vline(xintercept = newmin, color = 'orange') +
+    annotate('text', y = 30, x = newmin-.4, label = 'c', color = 'orange') +
+    annotate('text', y = c(10, 15), x = c(1.25, 7.5),
+             label = paste0(expression(bar(Y)),'==',
+                            round(c(mean(y[which(x <=newmin)]), mean(y[which(x >newmin)])), 3) ),
+             color = 'blue', parse = TRUE) + 
+  geom_segment(aes(x = c(0, newmin), 
+                   y = c(mean(df$y[which(df$x <= newmin)]),
+                                               mean(df$y[which(df$x > newmin)]))), 
+                   xend = c(newmin, 10),
+               yend = c(mean(df$y[which(df$x <= newmin)]),
+                                               mean(df$y[which(df$x > newmin)])),
+               color = "blue") + 
+  geom_segment(aes(x = x, y = y, xend = x, 
+                   yend = ifelse(df$x <= newmin, mean(df$y[which(df$x <= newmin)]), 
+                                 mean(df$y[which(df$x > newmin)]))),
+               color = 'blue', arrow = arrow(length = unit(0.2, "cm"))) +
+  coord_cartesian(ylim = c(0, 30), xlim = c(0,10))
+
+@
+}
+\end{figure}
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+\\~\
+}
+
+%-------------------------------------------------------------------------------%
+\begin{frame}{Regression Trees}
+
+\begin{itemize}
+\item Now suppose we have joint data, $(Y,X_1, \dots, X_k)$.\pause
+\item We will do the same approach to finding thresholds to minimize prediction error, but we'll want to pick which $X_k$ we use for threshholding, as well. \pause
+\item Generally, we'll define the depth of the tree as 2 or three variables; first we'll split on $X_k$, then we'll split on $X_j$\dots
+\end{itemize}
+
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+\\~\
+}
+
+%-------------------------------------------------------------------------------%
+\begin{frame}{Honesty}
+
+\begin{itemize}
+\item Returning to (causal) inference\dots \pause we might like to use these methods to get valid inference, potentially on causal targets.
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+
+}
+
+%-------------------------------------------------------------------------------%
+\begin{frame}{An honest tree algorithm}
+
+\begin{enumerate}
+\item Split the sample into two folds. \pause
+\item Use the first fold to learn splits of the tree. \pause
+\item Estimate response within leaves using the second fold. \pause
+\end{enumerate}
+
+\begin{itemize}
+\item This can result in some leaves being empty. \pause Prune them? \pause
+\item This procedure reduces bias relative to those proposed by \cite{breiman2001random}.
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+
+}
+
+%-------------------------------------------------------------------------------%
+\begin{frame}[fragile]{An honest tree algorithm}
+
+<<eval = FALSE>>=
+library(grf)
+set.seed(60637)
+
+
+n <- 500
+p <- 10
+X <- matrix(rnorm(n * p), n, p)
+W <- rbinom(n, 1, 0.5)
+Y <- pmax(X[, 1], 0) * W + X[, 2] +
+  pmin(X[, 3], 0) + rnorm(n)
+c.forest <- causal_forest(X, Y, W)
+@
+<<echo=FALSE, eval = FALSE>>=
+# Saving a plot in .svg can be done with the `DiagrammeRsvg` package.
+tree.plot = plot(tree)
+cat(DiagrammeRsvg::export_svg(tree.plot), file = '../assets/tree_plot.svg')
+@
+
+
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+
+}
+
+%-------------------------------------------------------------------------------%
+\begin{frame}{An honest tree}
+
+\begin{figure}
+\centering
+\includegraphics[width = 0.8\textwidth]{../assets/tree-plot.png}
+\end{figure}
+\hfill
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+
+}
+
+%-------------------------------------------------------------------------------%
+\begin{frame}{Matrix completion: the Nexflix problem}
+
+\begin{itemize}
+\item Netflix has data on viewers, their characteristics, and how they rate movies. \pause
+\item The question: how to best recommend to them movies that they have not yet rated?\pause
+\item The challenge: come up with the best recommendation algorithm, winner gets \$1 million. \pause
+\item This can be framed as a matrix completion problem: put users on rows, movies on columns, predict all of the missing rankings.
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+\\~\
+}
+
+%-------------------------------------------------------------------------------%
+
+\begin{frame}{Causal inference}
+
+
+\begin{itemize}
+\item Machine learning tools can be super useful for causal inference. \pause
+\begin{itemize}
+\item Fit prediction models separately to treatment and control, so we can do a better job of estimating treatment effects at different covariate values. \pause
+\item Learn which covariates to include in a (causal) regression model. \pause
+\item For observational data, predict propensity to be in treatment vs. control group, based on covariates. 
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+\\~\
+}
+
+%-------------------------------------------------------------------------------%
+\begin{frame}{Causal inference: no free lunch}
+
+
+\begin{itemize}
+\item Machine learning does not solve the fundamental problem of causal inference. \pause
+\item Causal interpretations are based on assumptions about the data generating process, or knowledge of assignment procedures. These are outside the realm of machine learning methods. 
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+\\~\
+}
+
+%-------------------------------------------------------------------------------%
+\begin{frame}{Prediction error}
+
+\begin{itemize}
+\item ML methods may do a good job of producing estimates, but how do we account for inference?\pause
+\item Cross-validation \pause
+\item Bootstrapping\pause
+\item Applying these solutions to prediction under multiple linear regression
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+\\~\
+}
+
+%-------------------------------------------------------------------------------%
+
+%-------------------------------------------------------------------------------%
+\backupbegin
+%-------------------------------------------------------------------------------%
+
+\begin{frame}[allowframebreaks]{References}
+\bibliographystyle{apalike}
+\bibliography{../assets/bib}
+\end{frame}
+%-------------------------------------------------------------------------------%
+
+\backupend
+\end{document}
+%
+\\~\
+%-------------------------------------------------------------------------------%
+%%% [[TEMPLATEs]] %%%
+%-------------------------------------------------------------------------------%
+\begin{frame}[fragile]
+
+\begin{figure}
+\centering
+{
+<<fig = TRUE, width = 7, height=5, echo=FALSE>>=
+hist(rnorm(10))
+@
+}
+\end{figure}
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+\\~\
+}
+
+%-------------------------------------------------------------------------------%
+\begin{frame}%{Frametile}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth,height=0.8\textheight,keepaspectratio]{...}
+\end{figure}
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+
+}
+
+%-------------------------------------------------------------------------------%
+\begin{frame}%{Frametitle}
+
+\begin{itemize}
+\item xxx
+\end{itemize}
+
+\end{frame}
+
+
+%%%%%NOTE%%%%%
+\note{
+\scriptsize \singlespacing
+
+\begin{itemize}
+\item xxxx
+\end{itemize}
+\\~\
+}
+
+%-------------------------------------------------------------------------------%
+<<echo = FALSE>>=
+f <- 'slides_91.Rnw'
+knitr::purl(f)
+knitr::Sweave2knitr(f)
+@
