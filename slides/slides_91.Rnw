@@ -67,6 +67,7 @@
 
 \begin{document}
 \SweaveOpts{concordance=TRUE}
+\SweaveOpts{concordance=TRUE, prefix.string = figs91/}
 
 
 %-------------------------------------------------------------------------------%
@@ -933,6 +934,7 @@ c.forest <- causal_forest(X, Y, W)
 @
 <<echo=FALSE, eval = FALSE>>=
 # Saving a plot in .svg can be done with the `DiagrammeRsvg` package.
+plot(tree <- get_tree(c.forest, 1))
 tree.plot = plot(tree)
 cat(DiagrammeRsvg::export_svg(tree.plot), file = '../assets/tree_plot.svg')
 @
